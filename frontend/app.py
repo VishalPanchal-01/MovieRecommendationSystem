@@ -77,11 +77,14 @@ def poster_grid(cards, cols=6, key_prefix="grid"):
 
     rows = (len(cards) + cols - 1) // cols
     idx = 0
+
     for r in range(rows):
         colset = st.columns(cols)
+
         for c in range(cols):
             if idx >= len(cards):
                 break
+
             m = cards[idx]
             idx += 1
 
@@ -91,16 +94,23 @@ def poster_grid(cards, cols=6, key_prefix="grid"):
 
             with colset[c]:
                 if poster:
-                    st.image(poster, use_column_width=True)
+                    st.image(
+                        poster,
+                        width="stretch"
+                    )
                 else:
                     st.write("🖼️ No poster")
 
-                if st.button("Open", key=f"{key_prefix}_{r}_{c}_{idx}_{tmdb_id}"):
+                if st.button(
+                    "Open",
+                    key=f"{key_prefix}_{r}_{c}_{idx}_{tmdb_id}"
+                ):
                     if tmdb_id:
                         goto_details(tmdb_id)
 
                 st.markdown(
-                    f"<div class='movie-title'>{title}</div>", unsafe_allow_html=True
+                    f"<div class='movie-title'>{title}</div>",
+                    unsafe_allow_html=True
                 )
 
 
